@@ -1,48 +1,64 @@
-.h1{
-    margin: auto;
+#dropdown {
+  height: 36px;
+  width: 155.72267150878906px;
+  left: 0px;
+  top: 0px;
+  border-radius: 23px;
+  appearance: none;
+  text-align: center;
 }
 
-
-
-
-
-
-
-
-.container{
-        display: grid;
-        grid-template-columns: repeat(6,1fr);
+h1 {
+  display: flex;
+  justify-content: center;
+}
+h2 {
+  display: flex;
+  justify-content: center;
 }
 
-.grp1{
-    display: grid;
-    grid-template-rows: repeat(2,1fr);
+.container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
 }
-.grp2{
-    display: grid;
-    grid-template-rows: repeat(2,1fr);
+
+.haut > label {
+  display: flex;
+  justify-content: center;
 }
-.grp3{
-    display: grid;
-    grid-template-rows: repeat(2,1fr);
+
+.mid {
+  display: flex;
+  justify-content: center;
 }
-.grp4{
-    display: grid;
-    grid-template-rows: repeat(2,1fr);
+
+.grp1 {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-content: center;
 }
-.grp5{
-    display: grid;
-    grid-template-rows: repeat(2,1fr);
+.grp2 {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-content: center;
 }
-.grp6{
-    display: grid;
-    grid-template-rows: repeat(2,1fr);
+.grp3 {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-content: center;
 }
-.haut > button{
-    width: 50px;
-    height: 50px;
+.grp4 {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-content: center;
 }
-.bas > button{
-    width: 50px;
-    height: 50px;
+.grp5 {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-content: center;
+}
+.grp6 {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-content: center;
 }

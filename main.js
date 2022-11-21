@@ -33,6 +33,7 @@ let Objects = {
 let inputs
 let grade
 let tablo
+let descri
 for (var i = 1; i <= 5; i++) {
   getButton(i);
 }
@@ -42,15 +43,15 @@ function getButton(index) {
   inputs.addEventListener("click", function () {
     tablo = document.getElementById("tablo-" + index);
     grade = parseFloat(document.getElementById("noteInput-" + index).value);
-    console.log(tablo);
-    if(!isNaN(grade)){
+    descri = parseFloat(document.getElementById("descri-" + index).value);
+    if(!isNaN(grade, descri)){
     console.log("jai click" + " " + index);
     var row = tablo.insertRow(0)
     console.log(row);
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     cell1.innerHTML = grade;
-    cell2.innerHTML = grade;
+    cell2.innerHTML = descri;
     }else{
     alert("Votre note n'est pas valable.")  
     }

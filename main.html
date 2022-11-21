@@ -4,129 +4,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Calculateur.JS</title>
     <link rel="stylesheet" href="./main.css" />
   </head>
   <body>
-    <h1>Calculateur CFC</h1>
-    <div class="container">
-      <div class="grp1">
+    <div class="containerHaut">
+      <div class="thisIsH">
+      <h1>Calculateur CFC</h1>
+     <div class="thisIsH2">
         <h2>Ecole Pro.</h2>
-
-        <div class="haut"></div>
-
-        <div class="mid">
-          <label for="textInput"></label><br /><br />
-          <input
-            type="number"
-            min="1"
-            max="6"
-            id="textInput"
-            placeholder="Note"
-            step=".5"
-          <label for="moduleInput"></label><br /><br />
-          <input
-            type="number"
-            min="1"
-            max="6"
-            id="moduleInput"
-            placeholder="Module"
-            step=".5"
-          /><br /><br />
-        </div>
-        <div>
-        <button class="addButton" id="addButton"></button>
-      </div>
-      </div>
-
-      <div class="grp2">
-        <div class="haut">
-          <h2>Ecole Inter.</h2>
-        </div>
-        <div class="mid">
-          <label for="textInput"></label><br /><br />
-          <input
-            type="number"
-            min="1"
-            max="6"
-            id="textInput"
-            placeholder="Note"
-            step=".5"
-            <label for="moduleInput"></label><br /><br />
-          <input
-            type="number"
-            min="1"
-            max="6"
-            id="moduleInput"
-            placeholder="Module"
-            step=".5"
-          /><br /><br />
-        </div>
-        <div>
-          <button class="addButton" id="addButton"></button>
-        </div>
-      </div>
-
-      <div class="grp3">
+        <h2>Ecole Inter.</h2>
         <h2>Compétence de base Elargie</h2>
-        <div class="haut">
-          <select name="dropdown1" id="dropdown">
-            <option value="1"> Semestre 1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-          </select>
-          <br /><br />
-        </div>
-        <div class="mid">
-          <label for="textInput"></label><br /><br />
-          <input
-            type="number"
-            min="1"
-            max="6"
-            id="textInput"
-            placeholder="Note"
-            step=".5"
-          /><br /><br />
-        </div>
-        <div>
-          <button class="addButton" id="addButton"></button>
-        </div>
-      </div>
-
-      <div class="grp4">
         <h2>Culture G.</h2>
-        <div class="haut">
-          <select name="dropdown1" id="dropdown">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-          </select>
-          <br /><br />
-        </div>
-        <div class="mid">
-          <label for="textInput"></label><br /><br />
-          <input
-            type="number"
-            min="1"
-            max="6"
-            id="textInput"
-            placeholder="Note"
-            step=".5"
-          /><br /><br />
-        </div>
-        <div>
-          <button class="addButton" id="addButton"></button>
-        </div>
-      </div>
-
-      <div class="grp5">
         <h2>TPI</h2>
+        <h2>Toutes les moyennes</h2>
+      </div>
+      </div>
+    </div>
+    <div class="containerMid">
+      <div class="Ecole-Pro">
         <div class="haut"></div>
         <div class="mid">
           <label for="noteInput"></label><br /><br />
@@ -134,29 +30,188 @@
             type="number"
             min="1"
             max="6"
-            id="noteInput"
+            id="noteInput-1"
+            class="noteInput"
             placeholder="Note"
             step=".5"
-            <label for="descriptionInput"></label><br /><br />
+          />
+          <label for="moduleInput"></label><br /><br />
+          <input
+            type="number"
+            min="1"
+            max="6"
+            id="moduleInput"
+            class="moduleInput"
+            placeholder="Module"
+            step=".5"
+          /><br /><br />
+        </div>
+        <div class="bas">
+          <button type="button" class="addButton" id="addButton-1">Ajouter une note</button>
+        </div>
+      </div>
+      <div class="Ecole-Inter">
+        <div class="haut"></div>
+        <div class="mid">
+          <label for="noteInput"></label><br /><br />
+          <input
+            type="number"
+            min="1"
+            max="6"
+            id="noteInput-2"
+            class="noteInput"
+            placeholder="Note"
+            step=".5"
+            /><label for="moduleInput"></label><br /><br />
+          <input
+            type="number"
+            min="1"
+            max="6"
+            id="moduleInput"
+            class="moduleInput"
+            placeholder="Module"
+            step=".5"
+          /><br /><br />
+        </div>
+        <div class="bas">
+          <button type="button" class="addButton" id="addButton-2">Ajouter une note</button>
+        </div>
+      </div>
+
+      <div class="Compétence-Elargie">
+        <div class="haut">
+          <select name="dropdown1" id="dropdown">
+            <option value="1">Semestre Maths 1</option>
+            <option value="2">Semestre Maths 2</option>
+            <option value="3">Semestre Maths 3</option>
+          </select>
+          <select name="dropdown1" id="dropdown">
+            <option value="1">Semestre Anglais 1</option>
+            <option value="2">Semestre Anglais 2</option>
+            <option value="3">Semestre Anglais 3</option>
+            <option value="4">Semestre Anglais 4</option>
+          </select>
+        </div>
+        <div class="mid">
+          <label for="noteInput"></label>
+          <input
+            type="number"
+            min="1"
+            max="6"
+            id="noteInput-3"
+            class="noteInput"
+            placeholder="Note"
+            step=".5"
+            /><label for="brancheInput"></label>
+            <input type="text" maxlength="50" id="brancheInput" class="brancheInput" placeholder="Branche" required />
+            <br /><br/>
+        </div>
+        <div class="bas">
+          <button type="button" class="addButton" id="addButton-3">Ajouter une note</button>   
+        </div>
+      </div>
+
+      <div class="Culture-G">
+        <div class="haut">
+          <select name="dropdown1" id="dropdown">
+            <option value="1">Semestre 1</option>
+            <option value="2">Semestre 2</option>
+            <option value="3">Semestre 3</option>
+            <option value="4">Semestre 4</option>
+            <option value="5">Semestre 5</option>
+            <option value="6">Semestre 6</option>
+          </select>
+        </div>
+        <div class="mid">
+          <label for="noteInput"></label>
+          <input
+            type="number"
+            min="1"
+            max="6"
+            id="noteInput-4"
+            class="noteInput"
+            placeholder="Note"
+            step=".5"
+            /><label for="brancheInput"></label>
+            <input type="text" maxlength="50" id="brancheInput" placeholder="Branche" class="brancheInput"required />
+          <br /><br />
+        </div>
+        <div class="bas">
+          <button type="button" class="addButton" id="addButton-4">Ajouter une note</button> 
+        </div>
+      </div>
+
+      <div class="TPI">
+        <div class="haut"></div>
+        <div class="mid">
+          <label for="noteInput"></label><br /><br />
+          <input
+            type="number"
+            min="1"
+            max="6"
+            id="noteInput-5"
+            class="noteInput"
+            placeholder="Note"
+            step=".5"
+            /><label for="descriptionInput"></label><br /><br />
           <input
             type="number"
             min="1"
             max="6"
             id="descriptionInput"
+            class="descriptionInput"
             placeholder="Description"
             step=".5"
           /><br /><br />
         </div>
-        <div>
-          <button class="addButton" id="addButton"></button>
+        <div class="bas">
+          <button type="button" class="addButton" id="addButton-5">Ajouter une note</button>
         </div>
-      </div>
+        </div>
 
       <div class="grp6">
-        <h2>Toutes les moyennes</h2>
-        <div class="haut"></div>
+        <div class="haut">
+          </div>
+        <div class="mid"></div>
         <div class="bas"></div>
       </div>
     </div>
-  </body>
+    <div id="labelTablo">
+      <label for="tablo-1"> Note    -    Module</label>
+      <label for="tablo-2"> Note    -    Module</label>
+      <label for="tablo-3"> Note    -    Module</label>
+      <label for="tablo-4"> Note    -    Module</label>
+      <label for="tablo-5"> Note    -    Module</label>
+    </div>
+    <div class="grpTablo">
+      <table id="tablo-1"> 
+      </table>
+    </div>
+    <div class="grpTablo">
+      <table id="tablo-2"> 
+      </table>
+    </div>
+    <div class="grpTablo">
+      <table id="tablo-3"> 
+      </table>
+    </div>
+    <div class="grpTablo">
+      <table id="tablo-4"> 
+      </table>
+    </div>
+    <div class="grpTablo">
+      <table id="tablo-5"> 
+      </table>
+    </div>
+    </div>
+    <div>
+      <h3>Ma moyenne:<span id="avg"></span></h3>
+    </div>
+  </div>
+  <div id="footerBox">
+    <footer id="foot"></footer>
+  </div>
+  <script type = "text/javascript" src="main.js"></script>  
+
+    </body>
 </html>

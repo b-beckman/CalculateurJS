@@ -6,7 +6,7 @@ let Notes = {
     semestre1: [],
   },
   tabl3: {
-    mathSemestre1: [3, 2, 1, 5],
+    mathSemestre1: [],
     mathSemestre2: [],
     mathSemestre3: [],
     anglaisSemestre1: [],
@@ -27,23 +27,32 @@ let Notes = {
     semestre1: [],
   },
 };
-function upScreen() {
-  addEventListener("change", function (){
-    this.document.querySelector(".dropdown1")
-  }); 
-}
-upScreen();
 //Loop for index
 for (var i = 1; i <= 5; i++) {
   getButton(i);
 }
-//adds row columns and innerHTML
+//Deletes the tab when semestre is changed.
+function deleteTabl() {
+  let selector = document.querySelectorAll(".dropdown1");
+  for (const iterator of selector) {
+    iterator.addEventListener("change", function (e) {
+      let index = e.target.id.split("-")[1];
+      let tabl = document.getElementById("tabl" + index);
+      let row = tabl.rows.length;
+      for (var i = 1; i <= row; i++) {
+        tabl.deleteRow(0);
+      }
+    });
+  }
+}
+deleteTabl();
+//adds row columns and innerHTML.
 function addRow(index, tablo, grade, descri) {
   if (index == 3 || index === 4) {
-  let row = tablo.insertRow(0);
-  let cell1 = row.insertCell(0);
-  cell1.innerHTML = grade;
-  }else{
+    let row = tablo.insertRow(0);
+    let cell1 = row.insertCell(0);
+    cell1.innerHTML = grade;
+  } else {
     let row = tablo.insertRow(0);
     let cell1 = row.insertCell(0);
     let cell2 = row.insertCell(1);
@@ -51,36 +60,34 @@ function addRow(index, tablo, grade, descri) {
     cell2.innerHTML = descri;
   }
 }
-//Get and push grade in the right table
+//Get and push grade in the right table.
 function getButton(index) {
-  let inputs = document.getElementById("addButton-" + index);
-  inputs.addEventListener("click", function () {
-    let grade = parseFloat(document.getElementById("noteInput-" + index).value);
-    //Condition to add the note or not
-    if (grade > 6) {
-      alert("Votre note n'est pas valable.");
-      return 0;
-    }if (!isNaN(grade)) {
-      if (index == 3 || index === 4) {
-        let sems = document.getElementById("dropdown-" + index).value;
-        let tablo = document.getElementById("tabl" + index);
-        Notes["tabl" + index][sems].push(grade);
-        console.log(Notes["tabl" + index][sems]);
-        addRow(index, tablo, grade)
-        console.log(Object.values(Notes));
-      } else {
-        let descri = document.getElementById("descri-" + index).value;
-        let tablo = document.getElementById("tabl" + index);
-        Notes["tabl" + index].semestre1.push(grade);
-        addRow(index, tablo, grade, descri)
+  document.getElementById("addButton-" + index).addEventListener("click", function () {
+      let grade = parseFloat(
+        document.getElementById("noteInput-" + index).value
+      );
+      if (grade > 6) {
+        alert("Votre note n'est pas valable.");
+        return 0;
       }
-    } else {
-      alert("Votre note n'est pas valable.");
-    }
-  });
+      if (!isNaN(grade)) {
+        if (index == 3 || index === 4) {
+          let sems = document.getElementById("dropdown-" + index).value;
+          let tablo = document.getElementById("tabl" + index);
+          Notes["tabl" + index][sems].push(grade);
+          console.log(Notes["tabl" + index][sems]);
+          addRow(index, tablo, grade);
+        } else {
+          let descri = document.getElementById("descri-" + index).value;
+          let tablo = document.getElementById("tabl" + index);
+          Notes["tabl" + index].semestre1.push(grade);
+          addRow(index, tablo, grade, descri);
+        }
+      } else {
+        alert("Votre note n'est pas valable.");
+      }
+    });
 }
-
-//grade has to = Notes note and add all notes in new rowss
 // });
 // }
 // function getTablo(index) {

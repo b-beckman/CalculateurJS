@@ -31,17 +31,23 @@ let Notes = {
 for (var i = 1; i <= 5; i++) {
   getButton(i);
 }
-//Deletes the tab when semestre is changed.
+//Deletes the tab and adds stored notes when semestre is changed.
 function deleteTabl() {
   let selector = document.querySelectorAll(".dropdown1");
   for (const iterator of selector) {
     iterator.addEventListener("change", function (e) {
       let index = e.target.id.split("-")[1];
       let tabl = document.getElementById("tabl" + index);
-      let row = tabl.rows.length;
-      for (var i = 1; i <= row; i++) {
+      let rowLength = tabl.rows.length;
+      for (var i = 1; i <= rowLength; i++) {
         tabl.deleteRow(0);
       }
+      let semestre = e.target.value
+          for (const grade of Notes["tabl" + index][semestre]) {
+            let row = tabl.insertRow(0);
+            let cell1 = row.insertCell(0);
+            cell1.innerHTML = grade;
+          }
     });
   }
 }

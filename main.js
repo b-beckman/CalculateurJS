@@ -31,6 +31,20 @@ let Notes = {
 for (var i = 1; i <= 5; i++) {
   getButton(i);
 }
+//Function that calculates the average grade and displays it.
+function average(index, semestre) {
+  let sum = 0;
+  let rightNote = Notes["tabl" + index][semestre]
+  for (const value of rightNote) {
+    sum += value;
+  }
+  if (sum > 0){
+      let moyennefinale = sum / Notes["tabl" + index][semestre].length
+      let moy = document.getElementById("maMoyenne" + index)
+      moyennefinale = moyennefinale.toFixed(2);
+      moy.innerHTML = "Ma moyenne: " + moyennefinale;
+  }
+}
 //Deletes the tab and adds stored notes when semestre is changed.
 function deleteTabl() {
   let selector = document.querySelectorAll(".dropdown1");
@@ -42,12 +56,14 @@ function deleteTabl() {
       for (var i = 1; i <= rowLength; i++) {
         tabl.deleteRow(0);
       }
-      let semestre = e.target.value
-          for (const grade of Notes["tabl" + index][semestre]) {
+      let semestre = e.target.value;
+      let rightNote = Notes["tabl" + index][semestre]
+          for (const grade of rightNote ) {
             let row = tabl.insertRow(0);
             let cell1 = row.insertCell(0);
             cell1.innerHTML = grade;
           }
+      average(index, semestre)
     });
   }
 }
@@ -58,7 +74,7 @@ function addRow(index, tablo, grade, descri) {
     let row = tablo.insertRow(0);
     let cell1 = row.insertCell(0);
     cell1.innerHTML = grade;
-  } else {
+  }else {
     let row = tablo.insertRow(0);
     let cell1 = row.insertCell(0);
     let cell2 = row.insertCell(1);
@@ -70,8 +86,7 @@ function addRow(index, tablo, grade, descri) {
 function getButton(index) {
   document.getElementById("addButton-" + index).addEventListener("click", function () {
       let grade = parseFloat(
-        document.getElementById("noteInput-" + index).value
-      );
+        document.getElementById("noteInput-" + index).value);
       if (grade > 6) {
         alert("Votre note n'est pas valable.");
         return 0;
@@ -83,35 +98,17 @@ function getButton(index) {
           Notes["tabl" + index][sems].push(grade);
           console.log(Notes["tabl" + index][sems]);
           addRow(index, tablo, grade);
+          average(index, sems)
         } else {
           let descri = document.getElementById("descri-" + index).value;
           let tablo = document.getElementById("tabl" + index);
           Notes["tabl" + index].semestre1.push(grade);
           addRow(index, tablo, grade, descri);
+          let param = "semestre1"
+          average(index, param)
         }
       } else {
         alert("Votre note n'est pas valable.");
       }
     });
 }
-// });
-// }
-// function getTablo(index) {
-// var table = document.getElementById("tablo" + index);
-// var row = table.insertRow([0]);
-// getbutton(index, row);
-// }
-//Bastien
-// const buttons = document.querySelectorAll('.addButton')
-// for (const button of buttons) {
-//   button.addEventListener('click', (e) => {
-//     const inputs = e.currentTarget.parentElement.parentElement.querySelectorAll('input')
-//   })}
-// s.push(Object.keys(Notes.tabl + index))
-// console.log(Object.keys(Notes.tabl + index));
-/* <div id="testBN"></div>;
-
-function updateViewFromDatas(data) {
-  for (const [key, value] of Object.entries(data)) {
-    console.log(key);
-    console.log(value);}} */

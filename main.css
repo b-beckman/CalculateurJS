@@ -161,3 +161,9 @@ td{
   position: absolute;
   background-color: #000461;
 }
+.moyClasse{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  justify-content: center;
+  text-align: center;
+}

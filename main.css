@@ -12,7 +12,7 @@ h1 {
   color: #ffffff;
 }
 header{
-  background-color: #000461;
+  background-color:  #000467;
   padding-top: 1em;
   padding-bottom: 1em;
   }
@@ -22,7 +22,7 @@ header{
   margin-top: 20px;
 }
 .thisIsH {
-  background: #000461;
+  background:  #000467;
   margin-bottom: 15px;
 }
 .thisIsH2 {
@@ -153,13 +153,11 @@ td{
   text-align: center;
 }
 #foot {
-  height: inherit;
-  width: inherit;
-  background-color: #000461;
-}
-#footerBox {
-  position: absolute;
-  background-color: #000461;
+  width: 10000px;
+  height: 50px;
+  background-color: #000467;
+  position: fixed;
+  bottom: 0px;
 }
 .moyClasse{
   display: grid;

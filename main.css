@@ -13,16 +13,17 @@ h1 {
 }
 header{
   background-color: #000461;
-}
+  padding-top: 1em;
+  padding-bottom: 1em;
+  }
 .containerMid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   margin-top: 20px;
 }
 .thisIsH {
-  height: 100px;
   background: #000461;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 .thisIsH2 {
   display: grid;
@@ -133,16 +134,14 @@ header{
   grid-template-rows: repeat(4, 1fr);
   justify-content: center;
 }
-
-
 .grouptableau{
   display: grid;
   grid-template-columns: repeat(6, 1fr);
 }
 .grpTablo {
   display: grid;
- 
 }
+
 td{
  height: 30px;
  text-align: center;

@@ -1,9 +1,11 @@
 let Notes = {
   tabl1: {
     semestre1: [],
+    mod1: [],
   },
   tabl2: {
     semestre1: [],
+    mod1: [],
   },
   tabl3: {
     mathSemestre1: [],
@@ -25,6 +27,7 @@ let Notes = {
   },
   tabl5: {
     semestre1: [],
+    mod1: [],
   },
 };
 //Loop for index
@@ -38,6 +41,7 @@ function average(index, semestre) {
   for (const value of rightNote) {
     sum += value;
   }
+//Display average
   if (sum > 0){
       let moyennefinale = sum / Notes["tabl" + index][semestre].length
       let moy = document.getElementById("maMoyenne" + index)
@@ -45,7 +49,7 @@ function average(index, semestre) {
       moy.innerHTML = "Ma moyenne: " + moyennefinale;
   }
 }
-//Deletes the tab and adds stored notes when semestre is changed.
+//Deletes the table and adds stored notes when semestre is changed.
 function deleteTabl() {
   let selector = document.querySelectorAll(".dropdown1");
   for (const iterator of selector) {
@@ -56,6 +60,7 @@ function deleteTabl() {
       for (var i = 1; i <= rowLength; i++) {
         tabl.deleteRow(0);
       }
+//Adds the stored notes in table
       let semestre = e.target.value;
       let rightNote = Notes["tabl" + index][semestre]
           for (const grade of rightNote ) {
@@ -68,7 +73,7 @@ function deleteTabl() {
   }
 }
 deleteTabl();
-//adds row columns and innerHTML.
+//adds row, columns and innerHTML.
 function addRow(index, tablo, grade, descri) {
   if (index == 3 || index === 4) {
     let row = tablo.insertRow(0);
@@ -85,24 +90,22 @@ function addRow(index, tablo, grade, descri) {
 //Get and push grade in the right table.
 function getButton(index) {
   document.getElementById("addButton-" + index).addEventListener("click", function () {
-      let grade = parseFloat(
-        document.getElementById("noteInput-" + index).value);
+      let grade = parseFloat(document.getElementById("noteInput-" + index).value);
       if (grade > 6) {
         alert("Votre note n'est pas valable.");
         return 0;
-      }
-      if (!isNaN(grade)) {
+      }if (!isNaN(grade)) {
         if (index == 3 || index === 4) {
           let sems = document.getElementById("dropdown-" + index).value;
           let tablo = document.getElementById("tabl" + index);
           Notes["tabl" + index][sems].push(grade);
-          console.log(Notes["tabl" + index][sems]);
           addRow(index, tablo, grade);
           average(index, sems)
         } else {
           let descri = document.getElementById("descri-" + index).value;
           let tablo = document.getElementById("tabl" + index);
           Notes["tabl" + index].semestre1.push(grade);
+          Notes["tabl" + index].mod1.push(descri);
           addRow(index, tablo, grade, descri);
           let param = "semestre1"
           average(index, param)

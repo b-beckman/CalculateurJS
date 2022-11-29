@@ -1,3 +1,9 @@
-# calculatorJS
+# Average Calculator CFC
 
-This tool will be used to calculate if I pass or not.
+* First usage of JS HTML/CSS and the local storage.
+
+## Aim: 
+* Copy a FIGMA created beforehand in HTML/CSS in the most precise way.    
+* Create an algorithm in JavaScript that stores, calculates and displays my average marks reactively.  
+* Save my marks in the local storage.
+

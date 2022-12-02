@@ -2,10 +2,12 @@ let Notes = {
   tabl1: {
     semestre1: [0,],
     mod1: [],
+    moy: [],
   },
   tabl2: {
     semestre1: [0,],
     mod1: [],
+    moy: [],
   },
   tabl3: {
     mathSemestre1: [0,],
@@ -16,6 +18,7 @@ let Notes = {
     anglaisSemestre3: [0,],
     anglaisSemestre4: [0,],
     anglaisSemestre5: [0,],
+    moy: [],
   },
   tabl4: {
     cultGSemestre1: [0,],
@@ -24,23 +27,22 @@ let Notes = {
     cultGSemestre4: [0,],
     cultGSemestre5: [0,],
     cultGSemestre6: [0,],
+    moy: [],
   },
   tabl5: {   
     semestre1: [0,],
     mod1: [],
+    moy: [],
   },
 };
 function calFinMoy() {
   let allTabls = Object.keys(Notes)
   let allMoy = []
   for (const tabl of allTabls) {
+    console.log(tabl);
+
       let allfirstValues = Object.values(Notes[tabl])
-      for (const firstValue of allfirstValues) {
-if (firstValue) {
-  
-}
-         
-        
+      for (const firstValue of allfirstValues) {      
         if (!isNaN(firstValue[0]) && firstValue[0] > 0 && firstValue[0] <= 6) {
           allMoy.push(parseFloat(firstValue[0]));
           if (allMoy.length == 5) {
@@ -74,8 +76,8 @@ function average(index, semestre) {
    if (sum > 0){
     let finMoyIndic = Notes["tabl" + index][semestre].length-1;
     document.getElementById("maMoyenne" + index).innerHTML = "Ma moyenne: " + (sum / finMoyIndic).toFixed(1);
-//.toFixed(1), limit the decimal to 1 | to turn string to number use *1.
     Notes["tabl" + index][semestre].splice(0, 1, (sum / finMoyIndic).toFixed(1)*1);
+
     calFinMoy()
   }
  }

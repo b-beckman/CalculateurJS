@@ -30,6 +30,34 @@ let Notes = {
     mod1: [],
   },
 };
+function calFinMoy() {
+  let allTabls = Object.keys(Notes)
+  let allMoy = []
+  for (const tabl of allTabls) {
+      let allfirstValues = Object.values(Notes[tabl])
+      for (const firstValue of allfirstValues) {
+if (firstValue) {
+  
+}
+         
+        
+        if (!isNaN(firstValue[0]) && firstValue[0] > 0 && firstValue[0] <= 6) {
+          allMoy.push(parseFloat(firstValue[0]));
+          if (allMoy.length == 5) {
+            allMoy.splice(0, 2, parseFloat((allMoy[0]*0.80 + allMoy[1]*0.20).toFixed(1)))
+            allMoy = (allMoy[0]*0.30+allMoy[1]*0.10+allMoy[2]*0.20+allMoy[3]*0.40).toFixed(1);
+            document.getElementById("cfc").innerHTML = allMoy;
+            if (allMoy >= 4) {
+              document.getElementById("re").innerHTML = "Réussi";
+            }else{
+              document.getElementById("re").innerHTML = "Raté";
+            }
+          }
+        }
+    }
+  }
+}
+calFinMoy()
 //Loop for index
 for (var i = 1; i <= 5; i++) {
   getButton(i);
@@ -46,11 +74,11 @@ function average(index, semestre) {
    if (sum > 0){
     let finMoyIndic = Notes["tabl" + index][semestre].length-1;
     document.getElementById("maMoyenne" + index).innerHTML = "Ma moyenne: " + (sum / finMoyIndic).toFixed(1);
-    Notes["tabl" + index][semestre].splice(0, 1, (sum / finMoyIndic).toFixed(1));
-   }
+//.toFixed(1), limit the decimal to 1 | to turn string to number use *1.
+    Notes["tabl" + index][semestre].splice(0, 1, (sum / finMoyIndic).toFixed(1)*1);
+    calFinMoy()
+  }
  }
-//document.getElementById("cfc").innerHTML = "" + 
-
 //Deletes the table and adds stored notes when semestre is changed.
 function deleteTabl() {
   let selector = document.querySelectorAll(".dropdown1");

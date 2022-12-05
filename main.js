@@ -2,17 +2,16 @@ let Notes = {
   tabl1: {
     semestre1: [0,],
     mod1: [],
-    moy: [],
   },
   tabl2: {
     semestre1: [0,],
     mod1: [],
-    moy: [],
   },
   tabl3: {
     mathSemestre1: [0,],
     mathSemestre2: [0,],
     mathSemestre3: [0,],
+    moy1: [],
     anglaisSemestre1: [0,],
     anglaisSemestre2: [0,],
     anglaisSemestre3: [0,],
@@ -27,101 +26,18 @@ let Notes = {
     cultGSemestre4: [0,],
     cultGSemestre5: [0,],
     cultGSemestre6: [0,],
+    cultGSemestre7: [0,],
+    cultGSemestre8: [0,],
     moy: [],
   },
   tabl5: {   
     semestre1: [0,],
     mod1: [],
-    moy: [],
   },
 };
-function calFinMoy() {
-  let allTabls = Object.keys(Notes)
-  let allMoy = []
-  for (const tabl of allTabls) {
-    console.log(tabl);
-
-      let allfirstValues = Object.values(Notes[tabl])
-      for (const firstValue of allfirstValues) {      
-        if (!isNaN(firstValue[0]) && firstValue[0] > 0 && firstValue[0] <= 6) {
-          allMoy.push(parseFloat(firstValue[0]));
-          if (allMoy.length == 5) {
-            allMoy.splice(0, 2, parseFloat((allMoy[0]*0.80 + allMoy[1]*0.20).toFixed(1)))
-            allMoy = (allMoy[0]*0.30+allMoy[1]*0.10+allMoy[2]*0.20+allMoy[3]*0.40).toFixed(1);
-            document.getElementById("cfc").innerHTML = allMoy;
-            if (allMoy >= 4) {
-              document.getElementById("re").innerHTML = "Réussi";
-            }else{
-              document.getElementById("re").innerHTML = "Raté";
-            }
-          }
-        }
-    }
-  }
-}
-calFinMoy()
 //Loop for index
 for (var i = 1; i <= 5; i++) {
   getButton(i);
-}
-//Function that calculates the average grade and displays it.
-function average(index, semestre) {
-  let sum = 0;
-  let rightNote = Notes["tabl" + index][semestre];
-  Notes["tabl" + index][semestre].splice(0, 1, null)
-  for (const value of rightNote) {
-    sum += value
-  }
-//Display average
-   if (sum > 0){
-    let finMoyIndic = Notes["tabl" + index][semestre].length-1;
-    document.getElementById("maMoyenne" + index).innerHTML = "Ma moyenne: " + (sum / finMoyIndic).toFixed(1);
-    Notes["tabl" + index][semestre].splice(0, 1, (sum / finMoyIndic).toFixed(1)*1);
-
-    calFinMoy()
-  }
- }
-//Deletes the table and adds stored notes when semestre is changed.
-function deleteTabl() {
-  let selector = document.querySelectorAll(".dropdown1");
-  for (const iterator of selector) {
-    iterator.addEventListener("change", function (e) {
-      let index = e.target.id.split("-")[1];
-      let tabl = document.getElementById("tabl" + index);
-      let rowLength = tabl.rows.length;
-      for (var i = 1; i <= rowLength; i++) {
-        tabl.deleteRow(0);
-      }
-//Adds the stored notes in table
-      let semestre = e.target.value;
-      let rightNote = Notes["tabl" + index][semestre];
-          for (const grade of rightNote) {
-            let row = tabl.insertRow(0);
-            let cell1 = row.insertCell(0);
-            cell1.innerHTML = grade;
-          }
-//average is stored in the same table this line displays not this line
-      tabl.deleteRow(tabl.rows.length-1);
-      average(index, semestre)
-    });
-  }
-}
-deleteTabl();
-//adds row, columns and innerHTML.
-function addRow(index, tablo, grade, descri) {
-  if (index == 3 || index === 4) {
-    let row = tablo.insertRow(0);
-    let cell1 = row.insertCell(0);
-    cell1.innerHTML = grade;
-  }else {
-    let row = tablo.insertRow(0);
-    let cell1 = row.insertCell(0);
-    let cell2 = row.insertCell(1);
-    cell1.style.width = "100px";
-    cell2.style.width = "100px";
-    cell1.innerHTML = grade;
-    cell2.innerHTML = descri;
-  }
 }
 //Get and push grade in the right table.
 function getButton(index) {
@@ -151,3 +67,105 @@ function getButton(index) {
       }
     });
 }
+//Function that calculates the average grade stores it in the object and displays it for a SINGLE tab.
+function average(index, semestre) {
+  let sum = 0;
+  let rightNote = Notes["tabl" + index][semestre];
+  Notes["tabl" + index][semestre].splice(0, 1, null)
+  for (const value of rightNote) {
+    sum += value
+  }
+//Display average
+   if (sum > 0){
+    let finMoyIndic = Notes["tabl" + index][semestre].length-1;
+    document.getElementById("maMoyenne" + index).innerHTML = "Ma moyenne: " + (sum / finMoyIndic).toFixed(1);
+    Notes["tabl" + index][semestre].splice(0, 1, (sum / finMoyIndic).toFixed(1)*1);
+    tabl3Tabl4()
+  }
+ }
+//adds row, columns and innerHTML.
+function addRow(index, tablo, grade, descri) {
+  if (index == 3 || index === 4) {
+    let row = tablo.insertRow(0);
+    let cell1 = row.insertCell(0);
+    cell1.innerHTML = grade;
+  }else {
+    let row = tablo.insertRow(0);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    cell1.style.width = "100px";
+    cell2.style.width = "100px";
+    cell1.innerHTML = grade;
+    cell2.innerHTML = descri;
+  }
+}
+//Deletes the table and adds stored notes when semestre is changed.
+function deleteTabl() {
+  let selector = document.querySelectorAll(".dropdown1");
+  for (const iterator of selector) {
+    iterator.addEventListener("change", function (e) {
+      let index = e.target.id.split("-")[1];
+      let tabl = document.getElementById("tabl" + index);
+      let rowLength = tabl.rows.length;
+      for (var i = 1; i <= rowLength; i++) {
+        tabl.deleteRow(0);
+      }
+//Adds the stored notes in table
+      let semestre = e.target.value;
+      let rightNote = Notes["tabl" + index][semestre];
+          for (const grade of rightNote) {
+            let row = tabl.insertRow(0);
+            let cell1 = row.insertCell(0);
+            cell1.innerHTML = grade;
+          }
+//average is stored in the same table this line displays not this line
+      tabl.deleteRow(tabl.rows.length-1);
+      average(index, semestre)
+    });
+  }
+}
+deleteTabl();
+// Merge average for tabl 3 and 4 and add all average in a tabl
+function tabl3Tabl4() {
+  let allNotes = []
+  let allTabls = Object.keys(Notes);
+  let sum = 0;
+  let allMoy = []
+  for (const tabl of allTabls) {
+    if (tabl == "tabl3" || tabl == "tabl4") {
+      let allSemestres = Object.keys(Notes[tabl])
+      for (const semestres of allSemestres) {
+        if (!isNaN(Notes[tabl][semestres][0]) && Notes[tabl][semestres][0] > 0) {
+          allNotes.push(Notes[tabl][semestres][0]);
+        }
+      }
+    }else{
+      let mestre1 = (Notes[tabl].semestre1[0])
+      allMoy.push(mestre1)
+  }
+  }
+  for (const singleNote of allNotes) {
+    sum += singleNote;
+  }
+  if (!isNaN(sum) && sum > 0){
+    let avgForTabl3And4 = parseFloat((sum / allNotes.length).toFixed(1))
+    allMoy.push(avgForTabl3And4)
+  }
+  finale(allMoy)
+}
+tabl3Tabl4()
+function finale(allMoy) {
+//   console.log(allMoy); 
+//    allMoy.parseFloat((allMoy[0]*0.80 + allMoy[1]*0.20).toFixed(1)))
+//    allMoy = (allMoy[0]*0.30+allMoy[1]*0.10+allMoy[2]*0.20+allMoy[3]*0.40).toFixed(1);
+//    document.getElementById("cfc").innerHTML = allMoy;
+//      if (allMoy >= 4) {
+//        document.getElementById("re").innerHTML = "Réussi";
+//      }else{
+//        document.getElementById("re").innerHTML = "Raté";
+//      }
+}
+// fixer présentation pour c++
+// vendredi 9decembre fixer rdv pour backlog avec Bastien 1h30
+// lundi dapres sprint planning vendredi sprint review (30min)
+// 3x 3h30 pour bosser pendant le sprint

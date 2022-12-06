@@ -11,13 +11,11 @@ let Notes = {
     mathSemestre1: [0,],
     mathSemestre2: [0,],
     mathSemestre3: [0,],
-    moy1: [],
     anglaisSemestre1: [0,],
     anglaisSemestre2: [0,],
     anglaisSemestre3: [0,],
     anglaisSemestre4: [0,],
     anglaisSemestre5: [0,],
-    moy: [],
   },
   tabl4: {
     cultGSemestre1: [0,],
@@ -128,44 +126,55 @@ deleteTabl();
 // Merge average for tabl 3 and 4 and add all average in a tabl
 function tabl3Tabl4() {
   let allNotes = []
-  let allTabls = Object.keys(Notes);
-  let sum = 0;
+  let allNotesCult = []
+  let sumMaths = 0;
+  let sumCult = 0;
   let allMoy = []
-  for (const tabl of allTabls) {
+  for (const tabl of Object.keys(Notes)) {
     if (tabl == "tabl3" || tabl == "tabl4") {
       let allSemestres = Object.keys(Notes[tabl])
       for (const semestres of allSemestres) {
-        if (!isNaN(Notes[tabl][semestres][0]) && Notes[tabl][semestres][0] > 0) {
+        if (tabl == "tabl3" && Notes[tabl][semestres][0] > 0) {
           allNotes.push(Notes[tabl][semestres][0]);
+        }if(tabl == "tabl4" && Notes[tabl][semestres][0] > 0){
+          allNotesCult.push(Notes[tabl][semestres][0]);
         }
       }
     }else{
       let mestre1 = (Notes[tabl].semestre1[0])
       allMoy.push(mestre1)
   }
-  }
+}
   for (const singleNote of allNotes) {
-    sum += singleNote;
+    sumMaths += singleNote;
   }
-  if (!isNaN(sum) && sum > 0){
-    let avgForTabl3And4 = parseFloat((sum / allNotes.length).toFixed(1))
+  for (const singleNote of allNotesCult) {
+    sumCult += singleNote;
+  }
+  if (sumMaths > 0){
+    let avgForTablAnd4 = parseFloat((sumMaths / allNotes.length).toFixed(1))
+    allMoy.push(avgForTablAnd4)
+  }
+  if (sumCult > 0){
+    let avgForTabl3And4 = parseFloat((sumCult / allNotesCult.length).toFixed(1))
     allMoy.push(avgForTabl3And4)
   }
   finale(allMoy)
 }
 tabl3Tabl4()
 function finale(allMoy) {
-//   console.log(allMoy); 
-//    allMoy.parseFloat((allMoy[0]*0.80 + allMoy[1]*0.20).toFixed(1)))
-//    allMoy = (allMoy[0]*0.30+allMoy[1]*0.10+allMoy[2]*0.20+allMoy[3]*0.40).toFixed(1);
-//    document.getElementById("cfc").innerHTML = allMoy;
-//      if (allMoy >= 4) {
-//        document.getElementById("re").innerHTML = "Réussi";
-//      }else{
-//        document.getElementById("re").innerHTML = "Raté";
-//      }
+  if (allMoy[0] > 0 && allMoy[1] > 0) {
+    allMoy.splice(0, 2, parseFloat((allMoy[0]*0.80 + allMoy[1]*0.20).toFixed(1)))
+    console.log(allMoy);
+  }if (allMoy[0] > 0 && allMoy[1] > 0 && allMoy[2] > 0 && allMoy.length == 4) {
+    allMoy = (allMoy[0]*0.30+allMoy[1]*0.10+allMoy[2]*0.20+allMoy[3]*0.40).toFixed(1);
+    document.getElementById("cfc").innerHTML = allMoy;
+      if (allMoy >= 4) {
+        document.getElementById("re").innerHTML = "Réussi";
+      }else{
+        document.getElementById("re").innerHTML = "Raté";
+      }
+    }
 }
-// fixer présentation pour c++
-// vendredi 9decembre fixer rdv pour backlog avec Bastien 1h30
-// lundi dapres sprint planning vendredi sprint review (30min)
-// 3x 3h30 pour bosser pendant le sprint
+// Proposer des exersices pendant la présentation
+// notion rappel, tache recurente, echeanche, partage liste todo

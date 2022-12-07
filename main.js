@@ -1,38 +1,4 @@
-let Notes = {
-  tabl1: {
-    semestre1: [0,],
-    mod1: [],
-  },
-  tabl2: {
-    semestre1: [0,],
-    mod1: [],
-  },
-  tabl3: {
-    mathSemestre1: [0,],
-    mathSemestre2: [0,],
-    mathSemestre3: [0,],
-    anglaisSemestre1: [0,],
-    anglaisSemestre2: [0,],
-    anglaisSemestre3: [0,],
-    anglaisSemestre4: [0,],
-    anglaisSemestre5: [0,],
-  },
-  tabl4: {
-    cultGSemestre1: [0,],
-    cultGSemestre2: [0,],
-    cultGSemestre3: [0,],
-    cultGSemestre4: [0,],
-    cultGSemestre5: [0,],
-    cultGSemestre6: [0,],
-    cultGSemestre7: [0,],
-    cultGSemestre8: [0,],
-    moy: [],
-  },
-  tabl5: {   
-    semestre1: [0,],
-    mod1: [],
-  },
-};
+let Notes = JSON.parse(localStorage.getItem('user'));
 //Loop for index
 for (var i = 1; i <= 5; i++) {
   getButton(i);
@@ -63,7 +29,8 @@ function getButton(index) {
       } else {
         alert("Votre note n'est pas valable.");
       }
-    });
+  localStorage.setItem('user', JSON.stringify(Notes))
+  });
 }
 //Function that calculates the average grade stores it in the object and displays it for a SINGLE tab.
 function average(index, semestre) {
@@ -109,13 +76,16 @@ function deleteTabl() {
         tabl.deleteRow(0);
       }
 //Adds the stored notes in table
-      let semestre = e.target.value;
+  let semestre = e.target.value;
+  if (semestre == "choice") { return 0}
       let rightNote = Notes["tabl" + index][semestre];
-          for (const grade of rightNote) {
-            let row = tabl.insertRow(0);
-            let cell1 = row.insertCell(0);
-            cell1.innerHTML = grade;
-          }
+      for (const grade of rightNote) {
+      let row = tabl.insertRow(0);
+      let cell1 = row.insertCell(0);
+      cell1.innerHTML = grade;
+    
+  }
+
 //average is stored in the same table this line displays not this line
       tabl.deleteRow(tabl.rows.length-1);
       average(index, semestre)
@@ -176,5 +146,8 @@ function finale(allMoy) {
       }
     }
 }
+// let myString = JSON.stringify(Notes);
+// let Notes = JSON.parse(myString);
+// console.log(myString);
 // Proposer des exersices pendant la présentation
 // notion rappel, tache recurente, echeanche, partage liste todo

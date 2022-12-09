@@ -1,4 +1,53 @@
-let Notes = JSON.parse(localStorage.getItem('user'));
+let Notes = {
+  tabl1: {
+    semestre1: [0,],
+    mod1: [],
+  },
+  tabl2: {
+    semestre1: [0,],
+    mod1: [],
+  },
+  tabl3: {
+    mathSemestre1: [0,],
+    mathSemestre1des: [],
+    mathSemestre2: [0,],
+    mathSemestre2des: [],
+    mathSemestre3: [0,],
+    mathSemestre3des: [],
+    anglaisSemestre1: [0,],
+    anglaisSemestre1des: [],
+    anglaisSemestre2: [0,],
+    anglaisSemestre2des: [],
+    anglaisSemestre3: [0,],
+    anglaisSemestre3des: [],
+    anglaisSemestre4: [0,],
+    anglaisSemestre4des: [],
+    anglaisSemestre5: [0,],
+    anglaisSemestre5des: [],
+  },
+  tabl4: {
+    cultGSemestre1: [0,],
+    cultGSemestre1des: [],
+    cultGSemestre2: [0,],
+    cultGSemestre2des: [],
+    cultGSemestre3: [0,],
+    cultGSemestre3des: [],
+    cultGSemestre4: [0,],
+    cultGSemestre4des: [],
+    cultGSemestre5: [0,],
+    cultGSemestre5des: [],
+    cultGSemestre6: [0,],
+    cultGSemestre6des: [],
+    cultGSemestre7: [0,],
+    cultGSemestre7des: [],
+    cultGSemestre8: [0,], 
+    cultGSemestre8des: [],
+  },
+  tabl5: {   
+    semestre1: [0,],
+    mod1: [],
+  },
+};
 //Loop for index
 for (var i = 1; i <= 5; i++) {
   getButton(i);
@@ -7,28 +56,31 @@ for (var i = 1; i <= 5; i++) {
 function getButton(index) {
   document.getElementById("addButton-" + index).addEventListener("click", function () {
       let grade = parseFloat(document.getElementById("noteInput-" + index).value);
-      if (grade > 6) {
+      let descri = document.getElementById("descri-" + index).value;
+      let tablo = document.getElementById("tabl" + index);
+      if (!isNaN(descri)) {
+        alert("Veuillez entrer une description");
+        return 0;
+      }
+      if (grade > 6 ) {
         alert("Votre note n'est pas valable.");
         return 0;
       }if (!isNaN(grade)) {
         if (index == 3 || index === 4) {
           let sems = document.getElementById("dropdown-" + index).value;
-          let tablo = document.getElementById("tabl" + index);
+          if (sems == "choice") {alert("Veuillez choisir un semestre"); return 0;}
           Notes["tabl" + index][sems].push(grade);
-          addRow(index, tablo, grade);
+          Notes["tabl" + index][sems + "des"].push(descri);
+          addRow(tablo, grade, descri);
           average(index, sems)
         } else {
-          let descri = document.getElementById("descri-" + index).value;
-          let tablo = document.getElementById("tabl" + index);
           Notes["tabl" + index].semestre1.push(grade);
           Notes["tabl" + index].mod1.push(descri);
-          addRow(index, tablo, grade, descri);
+          addRow(tablo, grade, descri);
           let param = "semestre1"
           average(index, param)
         }
-      } else {
-        alert("Votre note n'est pas valable.");
-      }
+      } else {alert("Votre note n'est pas valable.");}
   localStorage.setItem('user', JSON.stringify(Notes))
   });
 }
@@ -49,12 +101,7 @@ function average(index, semestre) {
   }
  }
 //adds row, columns and innerHTML.
-function addRow(index, tablo, grade, descri) {
-  if (index == 3 || index === 4) {
-    let row = tablo.insertRow(0);
-    let cell1 = row.insertCell(0);
-    cell1.innerHTML = grade;
-  }else {
+function addRow(tablo, grade, descri) {
     let row = tablo.insertRow(0);
     let cell1 = row.insertCell(0);
     let cell2 = row.insertCell(1);
@@ -62,7 +109,6 @@ function addRow(index, tablo, grade, descri) {
     cell2.style.width = "100px";
     cell1.innerHTML = grade;
     cell2.innerHTML = descri;
-  }
 }
 //Deletes the table and adds stored notes when semestre is changed.
 function deleteTabl() {
@@ -77,15 +123,16 @@ function deleteTabl() {
       }
 //Adds the stored notes in table
   let semestre = e.target.value;
-  if (semestre == "choice") { return 0}
       let rightNote = Notes["tabl" + index][semestre];
+      let descri = Notes["tabl" + index][semestre + "des"]
       for (const grade of rightNote) {
+        if (semestre == "choice" || grade == 0) { return 0}
       let row = tabl.insertRow(0);
       let cell1 = row.insertCell(0);
+      let cell2 = row.insertCell(1);
       cell1.innerHTML = grade;
-    
+      cell2.innerHTML = descri  
   }
-
 //average is stored in the same table this line displays not this line
       tabl.deleteRow(tabl.rows.length-1);
       average(index, semestre)
@@ -131,11 +178,16 @@ function tabl3Tabl4() {
   }
   finale(allMoy)
 }
+
+function buttonDelete() {
+  
+  
+}
+
 tabl3Tabl4()
 function finale(allMoy) {
   if (allMoy[0] > 0 && allMoy[1] > 0) {
     allMoy.splice(0, 2, parseFloat((allMoy[0]*0.80 + allMoy[1]*0.20).toFixed(1)))
-    console.log(allMoy);
   }if (allMoy[0] > 0 && allMoy[1] > 0 && allMoy[2] > 0 && allMoy.length == 4) {
     allMoy = (allMoy[0]*0.30+allMoy[1]*0.10+allMoy[2]*0.20+allMoy[3]*0.40).toFixed(1);
     document.getElementById("cfc").innerHTML = allMoy;
@@ -145,9 +197,5 @@ function finale(allMoy) {
         document.getElementById("re").innerHTML = "Raté";
       }
     }
+    console.log(Notes);
 }
-// let myString = JSON.stringify(Notes);
-// let Notes = JSON.parse(myString);
-// console.log(myString);
-// Proposer des exersices pendant la présentation
-// notion rappel, tache recurente, echeanche, partage liste todo

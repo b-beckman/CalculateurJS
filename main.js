@@ -31,6 +31,7 @@ if(localStorage.getItem("user") === null){
       cultGSemestre1: [0],
       cultGSemestre1des: [],
       cultGSemestre2: [0],
+      cultGSemestre2des: [],
       cultGSemestre3: [0],
       cultGSemestre3des: [],
       cultGSemestre4: [0],
@@ -77,7 +78,6 @@ function getButton(index) {
             alert("Veuillez choisir un semestre");
             return 0;
           }
-          console.log(sems);
           Notes["tabl" + index][sems].push(grade);
           Notes["tabl" + index][sems + "des"].push(descri);
           addRow(tablo, grade, descri);
@@ -170,6 +170,7 @@ function tabl3Tabl4() {
     if (tabl == "tabl3" || tabl == "tabl4") {
       let allSemestres = Object.keys(Notes[tabl]);
       for (const semestres of allSemestres) {
+        if (semestres.length == 16 || semestres.length == 19 || semestres.length == 17) {continue;}
         if (tabl == "tabl3" && Notes[tabl][semestres][0] > 0) {
           allNotes.push(Notes[tabl][semestres][0]);
         }
@@ -222,6 +223,7 @@ function buttonDelete(numForRow, tablo, grade) {
   } 
 }
 function finale(allMoy) {
+  console.log(allMoy);
   if (allMoy[0] > 0 && allMoy[1] > 0) {
     allMoy.splice(
       0,

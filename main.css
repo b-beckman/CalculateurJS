@@ -288,12 +288,13 @@ header {
   grid-template-columns: repeat(6, 1fr);
 }
 .grpTablo {
-  display: grid;
+  justify-content:space-evenly;
+
 }
 td {
   text-align: center;
-  overflow: hidden;
-  height: 28px;
+  height: 30px;
+  width: 200px;
 }
 #labelTablo {
   display: grid;

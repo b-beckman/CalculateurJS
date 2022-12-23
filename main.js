@@ -1,12 +1,13 @@
-if(typeof(localStorage.getItem("user"))=='undefined'){
-  let Notes = {
+let Notes;
+if(localStorage.getItem("user") === null){
+  Notes = {
     tabl1: {
       semestre1: [0],
-      mod1: [],
+      semestre1des: [],
     },
     tabl2: {
       semestre1: [0],
-      mod1: [],
+      semestre1des: [],
     },
     tabl3: {
       mathSemestre1: [0],
@@ -30,7 +31,6 @@ if(typeof(localStorage.getItem("user"))=='undefined'){
       cultGSemestre1: [0],
       cultGSemestre1des: [],
       cultGSemestre2: [0],
-      cultGSemestre2des: [],
       cultGSemestre3: [0],
       cultGSemestre3des: [],
       cultGSemestre4: [0],
@@ -46,11 +46,12 @@ if(typeof(localStorage.getItem("user"))=='undefined'){
     },
     tabl5: {
       semestre1: [0],
-      mod1: [],
+      semestre1des: [],
     },
   };
 }else{
-  let Notes = JSON.parse(localStorage.getItem('user'));
+  Notes = JSON.parse(localStorage.getItem('user'));
+}
 let numForRow = 0
 //Loop for index
 for (var i = 1; i <= 5; i++) {
@@ -71,27 +72,16 @@ function getButton(index) {
         return 0;
       }
       if (!isNaN(grade)) {
-        if (index == 3 || index === 4) {
-          if (!isNaN(descri)) {
-            alert("Veuillez entrer une description");
-            return 0;
-          }
           let sems = document.getElementById("dropdown-" + index).value;
           if (sems == "choice") {
             alert("Veuillez choisir un semestre");
             return 0;
           }
+          console.log(sems);
           Notes["tabl" + index][sems].push(grade);
           Notes["tabl" + index][sems + "des"].push(descri);
           addRow(tablo, grade, descri);
           average(index, sems);
-        } else {
-          Notes["tabl" + index].semestre1.push(grade);
-          Notes["tabl" + index].mod1.push(descri);
-          addRow(tablo, grade, descri);
-          let param = "semestre1";
-          average(index, param);
-        }
       } else {
         alert("Votre note n'est pas valable.");
       }
@@ -126,13 +116,11 @@ function addRow(tablo, grade, descri) {
   let row = tablo.insertRow(0);
   let cell1 = row.insertCell(0);
   let cell2 = row.insertCell(1);
-  cell1.id = "row" + numForRow;
-  cell2.id = "row" + numForRow;
-  cell1.style.width = "100px";
-  cell2.style.width = "100px";
+  cell1.className = "row" + numForRow;
+  cell2.className = "row" + numForRow;
   cell1.innerHTML = grade;
   cell2.innerHTML = descri;
-  buttonDelete(cell1.id, tablo, grade)
+  buttonDelete(numForRow, tablo, grade)
 }
 //Deletes the table and adds stored notes when semestre is changed.
 function deleteTabl() {
@@ -149,15 +137,20 @@ function deleteTabl() {
       let semestre = e.target.value;
       let rightNote = Notes["tabl" + index][semestre];
       let descri = Notes["tabl" + index][semestre + "des"];
+      let iForDescri = -2;
       for (const grade of rightNote) {
         if (semestre == "choice" || grade == 0) {
           return 0;
         }
+        iForDescri ++
         let row = tabl.insertRow(0);
         let cell1 = row.insertCell(0);
         let cell2 = row.insertCell(1);
+        cell1.className = "row" + iForDescri;
+        cell2.className = "row" + iForDescri;
         cell1.innerHTML = grade;
-        cell2.innerHTML = descri;
+        cell2.innerHTML = descri[iForDescri];
+        buttonDelete(iForDescri, tabl ,grade)
       }
       //average is stored in the same table this line displays not this line
       tabl.deleteRow(tabl.rows.length - 1);
@@ -207,20 +200,27 @@ function tabl3Tabl4() {
   }
   finale(allMoy);
 }
-function buttonDelete(cell1, tablo, grade) {
-    document.getElementById(cell1).addEventListener('click', function(){
-    this.parentElement.remove(this)
-    tablo = tablo.id
-    let sems = "semestre1"
-    if (tablo == "tabl3" || tablo == "tabl4") {
-      sems = document.getElementById("dropdown-" + tablo[4]).value;
-    }
-    let indexForNote = Notes[tablo][sems].indexOf(grade)
-    Notes[tablo][sems].splice(indexForNote, 1)
-    Notes[tablo][sems + "des"].splice(indexForNote, 1)
-  })
-}
 tabl3Tabl4();
+// Deletes a note when the table row is clicked
+function buttonDelete(numForRow, tablo, grade) {
+  for (const iterator of document.getElementsByClassName("row" + numForRow)) {
+    iterator.addEventListener('click', function(){
+      this.parentElement.remove(this)
+      tablo = tablo.id
+      let sems;
+      if (tablo == "tabl3" || tablo == "tabl4") {
+        sems = document.getElementById("dropdown-" + tablo[4]).value;
+      }else{
+        sems = "semestre1"
+      }
+      let indexForSupp = Notes[tablo][sems].indexOf(grade)
+      Notes[tablo][sems].splice(indexForSupp, 1)
+      indexForSupp -- 
+      Notes[tablo][sems + "des"].splice(indexForSupp, 1)
+      localStorage.setItem("user", JSON.stringify(Notes));
+    })
+  } 
+}
 function finale(allMoy) {
   if (allMoy[0] > 0 && allMoy[1] > 0) {
     allMoy.splice(
@@ -243,5 +243,4 @@ function finale(allMoy) {
       document.getElementById("re").innerHTML = "Raté";
     }
   }
-}
-}
+} 
